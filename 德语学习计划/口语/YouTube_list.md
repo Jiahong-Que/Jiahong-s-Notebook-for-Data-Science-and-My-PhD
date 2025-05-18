@@ -7,5 +7,5 @@
 
 [Videos Page](https://www.youtube.com/@deutsche-schule/videos)
 
-🔤 German Dialogs for Absolute Beginners: 7 Essential Daily Conversations for A1-A2 Level 🗣️
+🔤 German Dialogs for Absolute Beginners: 7 Essential Daily Conversations for A1-A2 Level 🗣️ <br>
 https://www.youtube.com/watch?v=rHPncy-KOLA&t=20s

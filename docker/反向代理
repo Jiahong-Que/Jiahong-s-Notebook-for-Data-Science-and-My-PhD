@@ -1,0 +1,138 @@
+好的，下面是你需要的完整详细操作指南，用 **QuickConnect + DSM 反向代理** 来远程访问你部署在 Synology NAS 上的 Docker 应用。
+
+---
+
+## ✅ 场景目标说明
+
+你已经：
+
+* 在 Synology NAS 上部署了一个 Docker 应用，比如一个运行在端口 `5000` 的 Flask/Streamlit Web App；
+* 你 **无法设置公网端口转发**（因为路由器被 ISP 管理）；
+* 你 **希望从外部网络通过 QuickConnect 链接访问这个应用**。
+
+---
+
+## ✅ 最终效果示例
+
+你希望访问的链接长这样：
+
+```
+https://yourQuickConnectID.quickconnect.to/myapp
+```
+
+这个链接会通过 DSM 自带的反向代理，将请求转发给 NAS 上某个 Docker 容器。
+
+---
+
+## 🧭 步骤分解
+
+---
+
+### 第一步：确认你的 Docker 应用正在运行
+
+1. 登录 DSM；
+2. 打开 **Docker → 容器**，确保你的应用正在运行；
+3. 记住该容器监听的端口，比如：
+
+   ```
+   宿主端口: 5000
+   容器端口: 5000
+   ```
+
+你稍后将通过 `localhost:5000` 来访问这个服务。
+
+---
+
+### 第二步：开启 QuickConnect
+
+1. 打开 DSM → **控制面板 → 外部访问 → QuickConnect**；
+2. 勾选 `启用 QuickConnect`；
+3. 登录 Synology 帐户或注册一个；
+4. 设置一个 `QuickConnect ID`，比如 `my-nas`；
+5. 点击“应用”。
+
+测试链接是否可访问 DSM：
+
+```
+https://quickconnect.to/my-nas
+```
+
+---
+
+### 第三步：设置反向代理规则
+
+1. 打开 DSM → **控制面板 → 登录门户（Login Portal）**；
+2. 点击上方的 **“高级”** 标签页；
+3. 点击 **“反向代理” → “创建”**；
+4. 填写如下内容：
+
+#### 🔷 **源 (Source)**
+
+| 项目  | 填写内容                                                              |
+| --- | ----------------------------------------------------------------- |
+| 描述  | `My Docker App`（随意）                                               |
+| 协议  | `HTTPS`                                                           |
+| 主机名 | `yourQuickConnectID.quickconnect.to`（例如：`my-nas.quickconnect.to`） |
+| 端口  | 留空（默认 443）                                                        |
+| 路径  | `/myapp`（你希望的路径）                                                  |
+
+> ⚠️ 主机名不要写 localhost，要写 QuickConnect 的完整子域名。
+
+#### 🔷 **目标 (Destination)**
+
+| 项目  | 填写内容                     |
+| --- | ------------------------ |
+| 协议  | `HTTP`                   |
+| 主机名 | `localhost`              |
+| 端口  | `5000`（你 Docker 宿主监听的端口） |
+
+---
+
+### 第四步：确认 DSM 的反向代理路径生效
+
+1. 打开浏览器，访问：
+
+   ```
+   https://my-nas.quickconnect.to/myapp
+   ```
+2. 如果配置无误，你应该看到 Docker 应用的 Web 界面。
+
+---
+
+## 🔍 可选增强设置（推荐）
+
+### ✅ 设置 Header 转发（避免一些应用出错）
+
+* 在反向代理设置里 → 高级 → 添加如下 Header 转发规则：
+
+  | Header 名          | 值                               |
+  | ----------------- | ------------------------------- |
+  | Host              | \$host                          |
+  | X-Real-IP         | \$remote\_addr                  |
+  | X-Forwarded-For   | \$proxy\_add\_x\_forwarded\_for |
+  | X-Forwarded-Proto | \$scheme                        |
+
+### ✅ 重定向 `/myapp/` 到 `/myapp`
+
+有些框架（如 Flask）需要完整路径加 `/` 结尾，否则静态资源无法加载。这时可以配置重定向规则。
+
+---
+
+## 🛠️ 故障排查建议
+
+| 问题                | 检查点                                           |
+| ----------------- | --------------------------------------------- |
+| 页面 404、无法访问       | 确保 Docker 容器端口是开放的                            |
+| QuickConnect 访问失败 | 检查 QuickConnect 是否启用且 ID 设置正确                 |
+| 加载页面缺 CSS 或图片     | 检查应用是否要求 path 以 `/myapp/` 结尾                  |
+| 重定向错误或路径出错        | 尝试设置 `BaseURL` 或使用 Flask 的 `url_for()` 正确处理路径 |
+
+---
+
+## ✅ 总结一句话
+
+> 通过 DSM 的 **反向代理功能**，你可以将 QuickConnect 的请求转发给任何 Docker Web 应用，从而实现远程访问，**无公网 IP、无需 VPN，适合你当前的网络限制**。
+
+---
+
+如果你愿意告诉我你应用的端口、路径名，我可以直接帮你写好配置模板。是否继续？

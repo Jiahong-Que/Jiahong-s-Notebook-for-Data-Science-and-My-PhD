@@ -37,7 +37,7 @@ docker run -p 8888:8888 jupyter/tensorflow-notebook
 
 📦 镜像名：`continuumio/miniconda3`
 
-* 非常干净，你可以按需安装你需要的所有库
+* 非常干净，可以按需安装所有库
 * 推荐用于高级用户自定义环境
 
 ```bash
@@ -115,7 +115,7 @@ docker run -p 8888:8888 -v $HOME/dev:/workspace my-ds-env
 
 
 
-## ✅ 是否需要我帮你：
+## ✅ 下一步：
 
 * 🔧 配置一个包含 PyTorch / TensorFlow + 数据科学工具的 Dockerfile？
 * 🧩 设置好 Jupyter + VS Code 的远程开发体验？

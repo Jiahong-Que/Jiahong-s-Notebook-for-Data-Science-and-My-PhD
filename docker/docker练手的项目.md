@@ -1,6 +1,7 @@
-太棒了！你已经开始玩 Docker，练手阶段最好的方式就是通过一些**实用又有趣的镜像**来动手实践。我给你整理了一份适合 **学习 + 娱乐 + 工作辅助** 的镜像清单，涵盖 Web、数据库、数据科学、DevOps、AI、个人效率、娱乐等方面：
+**实用又有趣的镜像**
 
----
+**学习 + 娱乐 + 工作辅助** 的镜像清单，涵盖 Web、数据库、数据科学、DevOps、AI、个人效率、娱乐等方面：
+
 
 ## 🚀 基础练手类（入门必备）
 
@@ -13,7 +14,6 @@
 | 🐘 `postgres`    | PostgreSQL 数据库   | `docker run -p 5432:5432 postgres` |
 | 🦁 `redis`       | 内存键值数据库，超快！      | `docker run -p 6379:6379 redis`    |
 
----
 
 ## 🧠 AI/数据科学类
 
@@ -23,7 +23,6 @@
 | 📘 `pytorch/pytorch`        | 官方 PyTorch 镜像（含CUDA）                       | `docker run -it pytorch/pytorch`                 |
 | 🧠 `tensorflow/tensorflow`  | 官方 TensorFlow 镜像                           | `docker run -it tensorflow/tensorflow`           |
 
----
 
 ## 🛠 DevOps / 开发辅助类
 
@@ -34,7 +33,6 @@
 | 🐙 `gitea/gitea`            | 轻量 GitHub/GitLab 替代品 | `docker run -p 3000:3000 gitea/gitea`            |
 | 🧪 `sonarqube`              | 代码质量检查平台             | `docker run -p 9000:9000 sonarqube`              |
 
----
 
 ## 📚 学习类 / API测试 / 编程练习
 
@@ -44,7 +42,6 @@
 | 🧪 `mockserver/mockserver` | 模拟 REST 接口，适合测试       |
 | 🧠 `code-server`           | 在浏览器中运行 VS Code（远程开发） |
 
----
 
 ## 👨‍💻 个人效率 / 工具类
 
@@ -55,7 +52,6 @@
 | 📝 `standardnotes/web`         | 自托管加密笔记应用                 |
 | 📂 `filebrowser/filebrowser`   | Web 文件管理器（浏览本地目录）         |
 
----
 
 ## 🎬 娱乐 / 生活类（适合部署到 NAS）
 
@@ -66,7 +62,6 @@
 | 🎮 `linuxserver/plex`          | 类似 Netflix 的本地媒体中心 |
 | ⬇️ `transmission/transmission` | 轻量 BitTorrent 下载器  |
 
----
 
 ## 🔧 推荐组合练习项目
 
@@ -88,12 +83,9 @@
 * 配合 `mockserver` 创建模拟 API
 * 用 `gitea` 管理代码版本
 
----
 
 ## 💡 提示
 
-你可以用 `docker-compose` 把多个镜像组合在一起练习，也可以练习挂载卷、设置环境变量、网络互通。
+可以用 `docker-compose` 把多个镜像组合在一起练习，也可以练习挂载卷、设置环境变量、网络互通。
 
----
 
-需要我为你设计几个练习项目的 `docker-compose.yml` 实战模板吗？或者挑几个方向一起动手实践？

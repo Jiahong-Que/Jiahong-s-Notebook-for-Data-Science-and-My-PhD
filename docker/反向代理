@@ -1,4 +1,4 @@
-好的，下面是你需要的完整详细操作指南，用 **QuickConnect + DSM 反向代理** 来远程访问你部署在 Synology NAS 上的 Docker 应用。
+用 **QuickConnect + DSM 反向代理** 来远程访问你部署在 Synology NAS 上的 Docker 应用
 
 ---
 
@@ -10,7 +10,7 @@
 * 你 **无法设置公网端口转发**（因为路由器被 ISP 管理）；
 * 你 **希望从外部网络通过 QuickConnect 链接访问这个应用**。
 
----
+
 
 ## ✅ 最终效果示例
 
@@ -22,11 +22,11 @@ https://yourQuickConnectID.quickconnect.to/myapp
 
 这个链接会通过 DSM 自带的反向代理，将请求转发给 NAS 上某个 Docker 容器。
 
----
+
 
 ## 🧭 步骤分解
 
----
+
 
 ### 第一步：确认你的 Docker 应用正在运行
 
@@ -41,7 +41,7 @@ https://yourQuickConnectID.quickconnect.to/myapp
 
 你稍后将通过 `localhost:5000` 来访问这个服务。
 
----
+
 
 ### 第二步：开启 QuickConnect
 
@@ -57,7 +57,7 @@ https://yourQuickConnectID.quickconnect.to/myapp
 https://quickconnect.to/my-nas
 ```
 
----
+
 
 ### 第三步：设置反向代理规则
 
@@ -86,7 +86,7 @@ https://quickconnect.to/my-nas
 | 主机名 | `localhost`              |
 | 端口  | `5000`（你 Docker 宿主监听的端口） |
 
----
+
 
 ### 第四步：确认 DSM 的反向代理路径生效
 
@@ -97,7 +97,7 @@ https://quickconnect.to/my-nas
    ```
 2. 如果配置无误，你应该看到 Docker 应用的 Web 界面。
 
----
+
 
 ## 🔍 可选增强设置（推荐）
 
@@ -116,7 +116,7 @@ https://quickconnect.to/my-nas
 
 有些框架（如 Flask）需要完整路径加 `/` 结尾，否则静态资源无法加载。这时可以配置重定向规则。
 
----
+
 
 ## 🛠️ 故障排查建议
 
@@ -127,12 +127,10 @@ https://quickconnect.to/my-nas
 | 加载页面缺 CSS 或图片     | 检查应用是否要求 path 以 `/myapp/` 结尾                  |
 | 重定向错误或路径出错        | 尝试设置 `BaseURL` 或使用 Flask 的 `url_for()` 正确处理路径 |
 
----
+
 
 ## ✅ 总结一句话
 
 > 通过 DSM 的 **反向代理功能**，你可以将 QuickConnect 的请求转发给任何 Docker Web 应用，从而实现远程访问，**无公网 IP、无需 VPN，适合你当前的网络限制**。
 
----
 
-如果你愿意告诉我你应用的端口、路径名，我可以直接帮你写好配置模板。是否继续？
